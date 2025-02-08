@@ -1,5 +1,5 @@
 # MaxKB-Crack
-已经完成代码修改，具体修改方法请往下看
+已经完成代码修改，修改好的文件和ui文件夹都已经在`crack`文件夹中，具体使用方法请往下看
 <p align="center"><img src= "https://github.com/1Panel-dev/maxkb/assets/52996290/c0694996-0eed-40d8-b369-322bf2a380bf" alt="MaxKB" width="300" /></p>
 <h3 align="center">Ready-to-use, flexible RAG Chatbot</h3>
 <h3 align="center">基于大模型和 RAG 的开源知识库问答系统</h3>
