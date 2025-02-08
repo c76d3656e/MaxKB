@@ -54,3 +54,37 @@ Licensed under The GNU General Public License version 3 (GPLv3)  (the "License")
 <https://www.gnu.org/licenses/gpl-3.0.html>
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+## Crack
+1.	从github上下载源码：1panel/MaxKB
+2.	找到文件清单，并搜索关键词“社区版”
+-	apps/application/serializers/application_serializers.py
+-	apps/dataset/serializers/dataset_serializers.py
+-	apps/setting/serializers/valid_serializers.py
+-	apps/users/serializers/user_serializers.py
+-	ui/src/views/application/index.vue
+-	ui/src/views/application/component/CopyApplicationDialog.vue
+-	ui/src/views/dataset/index.vue
+-	ui/src/views/user-manage/index.vue
+3.	逐一修改涉及限制的代码部分
+- py文件中的限制可以通过搜索关键词`The community version`搜索
+-	py文件，直接修改上面的数量限制，一般为 count= 后面的数字，直接修改，并修改后面的 message= 的说明文字
+- vue文件中的限制搜索`professional`可以找到
+-	vue文件，则一般是在 if else 条件函数里面，则直接将上面的处理过程复制到被限制的部分，来跳过限制提示
+4.	使用 nodejs npm 重新打包前端代码
+修改完所有 ui/src/view/ 下的vue文件之后，使用命令 `npm i` 安装所需要的node依赖，使用命令 `npm run build` 重新打包文件，打包之后的文件会在 `dist/ui` 目录下，可以将文件夹拷贝出来，以备后用。
+5.	替换 docker 中的文件，并重启 docker 镜像，以便生效
+-	将 ui 文件夹以及第一步中的4个已经修改了的py文件，放置在同一个目录下
+-	运行CMD或者Powershell，运行如下代码：
+```
+docker cp ./ui maxkb:/opt/maxkb/app/ui/dist	
+docker cp ./valid_serializers.py maxkb:/opt/maxkb/app/apps/setting/serializers
+docker cp ./dataset_serializers.py maxkb:/opt/maxkb/app/apps/dataset/serializers
+docker cp ./user_serializers.py maxkb:/opt/maxkb/app/apps/users/serializers
+docker cp ./application_serializers.py maxkb:/opt/maxkb/app/apps/application/serializers
+```
+在完成上述所有步骤之后，您将会获得一个数量不受限制的 MaxKB 系统。
+
+
+参考文献：
+https://xiao.nu/archives/maxkb-llm-rag-removes-application-knowledge-base-users-restrictions-for-docker-version.html
